@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Produtos</title>
+</head>
+<body>
+    <script>
+        let produtos = [];
+
+        while (true) {
+            let escolha = parseInt(prompt('Escolha a operação:\n1. Adicionar Produto\n2. Buscar Produto\n3. Atualizar Produto\n4. Exibir Todos os Produtos\n5. Remover Produto\n6. Sair'));
+
+            switch (escolha) {
+                case 1:
+                    adicionarProduto();
+                    break;
+                case 2:
+                    buscarProduto();
+                    break;
+                case 3:
+                    atualizarProduto();
+                    break;
+                case 4:
+                    exibirProdutos();
+                    break;
+                case 5:
+                    removerProduto();
+                    break;
+                case 6:
+                    alert('Saindo do sistema...');
+                    break;
+                default:
+                    alert('Opção inválida!');
+            }
+
+            if (escolha === 6) {
+                break;
+            }
+        }
+
+        function adicionarProduto() {
+            let nome = prompt('Digite o nome do produto:');
+            let preco = parseFloat(prompt('Digite o preço do produto:'));
+            let descricao = prompt('Digite a descrição do produto:');
+
+            let novoProduto = {
+                nome: nome,
+                preco: preco,
+                descricao: descricao
+            };
+
+            produtos.push(novoProduto);
+            alert('Produto adicionado com sucesso!');
+        }
+
+        function buscarProduto() {
+            let nomeBusca = prompt('Digite o nome do produto que deseja buscar:');
+            let produtoEncontrado = produtos.find(produto => produto.nome === nomeBusca);
+
+            if (produtoEncontrado) {
+                alert(`Produto encontrado:\nNome: ${produtoEncontrado.nome}\nPreço: ${produtoEncontrado.preco}\nDescrição: ${produtoEncontrado.descricao}`);
+            } else {
+                alert('Produto não encontrado!');
+            }
+        }
+
+        function atualizarProduto() {
+            let nomeAtualizar = prompt('Digite o nome do produto que deseja atualizar:');
+            let produtoAtualizar = produtos.find(produto => produto.nome === nomeAtualizar);
+
+            if (produtoAtualizar) {
+                let novoPreco = parseFloat(prompt('Digite o novo preço do produto:'));
+                let novaDescricao = prompt('Digite a nova descrição do produto:');
+
+                produtoAtualizar.preco = novoPreco;
+                produtoAtualizar.descricao = novaDescricao;
+
+                alert('Produto atualizado com sucesso!');
+            } else {
+                alert('Produto não encontrado!');
+            }
+        }
+
+        function exibirProdutos() {
+            if (produtos.length > 0) {
+                let listaProdutos = 'Produtos:\n';
+
+                produtos.forEach(produto => {
+                    listaProdutos += `Nome: ${produto.nome} | Preço: ${produto.preco} | Descrição: ${produto.descricao}\n`;
+                });
+
+                alert(listaProdutos);
+            } else {
+                alert('Nenhum produto disponível!');
+            }
+        }
+
+        function removerProduto() {
+            let nomeRemover = prompt('Digite o nome do produto que deseja remover:');
+            let Remover = produtos.findIndex(produto => produto.nome === nomeRemover);
+
+            if (Remover !== -1) {
+                produtos.splice(Remover, 1);
+                alert('Produto removido com sucesso!');
+            } else {
+                alert('Produto não encontrado!');
+            }
+        }
+    </script>
+</body>
+</html>
